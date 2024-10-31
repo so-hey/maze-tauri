@@ -27,5 +27,5 @@ jobs:
       - name: Upload Release Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: tauri-app
-          path: src-tauri/target/release/bundle/**
+          name: maze_0.1.0_x64-setup
+          path: src-tauri/target/release/bundle/app/**
