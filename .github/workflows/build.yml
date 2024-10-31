@@ -28,4 +28,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: maze_0.1.0_x64-setup
-          path: src-tauri/target/release/bundle/app/**
+          path: |
+            /Users/runner/work/maze-tauri/maze-tauri/src-tauri/target/release/bundle/macos/maze.app
+            /Users/runner/work/maze-tauri/maze-tauri/src-tauri/target/release/bundle/dmg/maze_0.1.0_aarch64.dmg
