@@ -3,7 +3,7 @@ name: Build Tauri App for Mac
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
