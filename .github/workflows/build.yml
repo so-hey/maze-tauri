@@ -3,7 +3,7 @@ name: Build Tauri App for Mac
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
@@ -22,10 +22,10 @@ jobs:
         run: npm install
 
       - name: Build Tauri app
-        run: npm run tauri build
+        run: npx tauri build
 
       - name: Upload Release Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: tauri-app
-          path: src-tauri/target/release/bundle/**
+          name: maze_0.1.0_x64-setup
+          path: src-tauri/target/release/bundle/app/**
