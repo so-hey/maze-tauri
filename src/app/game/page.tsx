@@ -74,6 +74,14 @@ export default function Maze() {
   const router = useRouter();
 
   useEffect(() => {
+    let saved_n = n;
+    if (n == 3) {
+      const saved_value = localStorage.getItem("n");
+      if (saved_value) {
+        saved_n = Number(saved_value);
+        setN(saved_n);
+      }
+    }
     getMaze(n);
     setCommands([]);
     setCommandIndex(null);
@@ -83,6 +91,7 @@ export default function Maze() {
 
   const getMaze = async (n: number) => {
     const newMaze = (await invoke("create_maze", { n: n })) as Maze;
+    console.log(newMaze);
     const newBoard = newMaze.board;
     const newPlayer = newMaze.player;
     board.current = newBoard;
@@ -201,6 +210,7 @@ export default function Maze() {
         break;
       case "Backspace":
         clickButtonSound();
+        localStorage.setItem("n", JSON.stringify(n));
         router.back();
         break;
       default:
@@ -225,6 +235,7 @@ export default function Maze() {
           variant="ghost"
           onClick={() => {
             clickButtonSound();
+            localStorage.setItem("n", JSON.stringify(n));
             router.back();
           }}
           paddingLeft={1}
@@ -505,7 +516,17 @@ export default function Maze() {
             </Stack>
           </ModalBody>
           <ModalFooter>
-            <Button marginRight={2} onClick={() => router.back()}>
+            <Button
+              marginRight={2}
+              onClick={() => {
+                if (n == 8) {
+                  localStorage.setItem("n", JSON.stringify(3));
+                } else {
+                  localStorage.setItem("n", JSON.stringify(n + 1));
+                }
+                router.back();
+              }}
+            >
               HOME
             </Button>
             {n < 8 && (

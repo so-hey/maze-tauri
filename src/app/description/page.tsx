@@ -105,23 +105,37 @@ export default function Description() {
                 </Center>
               </Stack>
             </GridItem>
-            <GridItem rowSpan={2}>
+            <GridItem rowSpan={2} padding="20px">
               <Image src="/maze.png" alt="maze" />
             </GridItem>
             <GridItem colSpan={2} rowSpan={2}>
-              <Stack marginTop="30px" marginRight="120px">
-                <Heading as="h1" size="lg" className="mPlus">
-                  迷路の画面
-                </Heading>
-                <Text as="p" fontSize="lg" className="mPlus">
-                  迷路には黒い霧がかかっており，プレイヤーの周囲4方向が通路か壁か，かろうじて判別できる程度しか見えません．
-                  <br />
-                  何度も挑戦して着実にゴールに近づいていきましょう！
-                </Text>
+              <Stack spacing={0}>
+                <Stack marginTop="20px" marginRight="80px">
+                  <Heading as="h1" size="lg" className="mPlus">
+                    迷路の画面
+                  </Heading>
+                  <Text as="p" fontSize="lg" className="mPlus">
+                    迷路には黒い霧がかかっており，プレイヤーの周囲4方向が通路か壁か，かろうじて判別できる程度しか見えません．
+                    <br />
+                    何度も挑戦して着実にゴールに近づいていきましょう！
+                  </Text>
+                </Stack>
+                <Stack marginRight="80px" direction="row">
+                  <Text
+                    w="300px"
+                    marginTop="20px"
+                    as="p"
+                    fontSize="lg"
+                    className="mPlus"
+                  >
+                    迷路のスタート地点は左上，ゴール地点は右下のマスになっています．
+                  </Text>
+                  <Image src="/maze_clear.png" alt="clear maze" w="100px" />
+                </Stack>
               </Stack>
             </GridItem>
             <GridItem colSpan={2} rowSpan={3}>
-              <Stack marginLeft="80px" marginRight="60px">
+              <Stack marginLeft="80px" marginRight="50px">
                 <Heading as="h1" size="lg" className="mPlus">
                   入力されたコマンド一覧
                 </Heading>
@@ -131,7 +145,7 @@ export default function Description() {
               </Stack>
             </GridItem>
             <GridItem rowSpan={3}>
-              <Stack height="90%">
+              <Stack height="55%">
                 <Spacer />
                 <Center>
                   <Image src="/keys.png" alt="keys" boxSize="200px" />
@@ -139,7 +153,7 @@ export default function Description() {
               </Stack>
             </GridItem>
             <GridItem colSpan={2} rowSpan={3}>
-              <Stack marginTop="120px" marginRight="120px">
+              <Stack marginTop="40px" marginRight="80px">
                 <Heading as="h1" size="lg" className="mPlus">
                   コマンド入力ボタン
                 </Heading>

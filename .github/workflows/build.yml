@@ -55,5 +55,5 @@ jobs:
         with:
           name: maze_windows
           path: |
-            /Users/runner/work/src-tauri/target/release/bundle/msi/maze_0.1.0_x64_en-US.msi
-            /Users/runner/work/src-tauri/target/release/bundle/nsis/maze_0.1.0_x64_setup.exe
+            D:\a\maze-tauri\maze-tauri\src-tauri\target\release\bundle\msi\maze_0.1.0_x64_en-US.msi
+            D:\a\maze-tauri\maze-tauri\src-tauri\target\release\bundle\nsis\maze_0.1.0_x64-setup.exe

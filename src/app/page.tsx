@@ -4,6 +4,13 @@ import { useSounds } from "@/sounds/sounds";
 import { Button, Heading, Stack, Text, useStyleConfig } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { listen } from "@tauri-apps/api/event";
+
+function setupWindowCloseListener() {
+  listen("tauri://close-requested", async () => {
+    localStorage.setItem("n", JSON.stringify(3));
+  });
+}
 
 export default function Home() {
   const { clickButtonSound } = useSounds();
@@ -29,6 +36,10 @@ export default function Home() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   });
+
+  useEffect(() => {
+    setupWindowCloseListener();
+  }, []);
 
   const router = useRouter();
   const defaultBlueButtonStyles = useStyleConfig("Button", {
