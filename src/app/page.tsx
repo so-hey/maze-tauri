@@ -1,11 +1,13 @@
 "use client";
 
-import { clickButtonSound } from "@/sounds";
+import { useSounds } from "@/sounds/sounds";
 import { Button, Heading, Stack, Text, useStyleConfig } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Home() {
+  const { clickButtonSound } = useSounds();
+
   const handleKeyDown = (e: KeyboardEvent) => {
     switch (e.key) {
       case "s":

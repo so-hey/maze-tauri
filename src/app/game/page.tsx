@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  clickButtonSound,
-  clickCommandSound,
-  runCommandSound,
-  clearStageSound,
-  moveMazeSound,
-} from "@/sounds";
+import { useSounds } from "@/sounds/sounds";
 import {
   ArrowBackIcon,
   ArrowDownIcon,
@@ -58,6 +52,14 @@ const maxN = 8;
 const mag = 1.4;
 
 export default function Maze() {
+  const {
+    clickButtonSound,
+    clickCommandSound,
+    runCommandSound,
+    clearStageSound,
+    moveMazeSound,
+  } = useSounds();
+
   const [n, setN] = useState(3);
   const board = useRef<number[][] | null>(null);
   const [player, setPlayer] = useState<[number, number] | null>(null);
@@ -66,6 +68,8 @@ export default function Maze() {
   const [commandIndex, setCommandIndex] = useState<number | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [startTime, setStartTime] = useState<number>(0);
+  const [clearTime, setClearTime] = useState<string>("0:00:00");
 
   const router = useRouter();
 
@@ -74,6 +78,7 @@ export default function Maze() {
     setCommands([]);
     setCommandIndex(null);
     setIsRunning(false);
+    setStartTime(Date.now());
   }, [n]);
 
   const getMaze = async (n: number) => {
@@ -129,10 +134,12 @@ export default function Maze() {
             dy: dy,
           }).then(async (response) => {
             const { movedPlayer } = response as MoveResponse;
-            console.log(prevPlayer);
-            console.log(movedPlayer);
             setPlayer(movedPlayer);
             if (board.current![movedPlayer[0]][movedPlayer[1]] == 3) {
+              const time = Date.now() - startTime;
+              setClearTime(
+                `${Math.floor(time / 3600000) % 24}:${("00" + (Math.floor(time / 60000) % 60)).slice(-2)}:${("00" + (Math.floor(time / 1000) % 60)).slice(-2)}.${("00" + Math.floor((time % 1000) / 100)).slice(-2)}`
+              );
               onOpen();
               await new Promise((res) => setTimeout(res, 300));
               clearStageSound();
@@ -487,24 +494,31 @@ export default function Maze() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            <Heading className="itim">Congratulations!</Heading>
+            <Heading as="h1">Congratulations!</Heading>
           </ModalHeader>
-          <ModalBody>
-            <Text className="itim">{`Cleared the ${n}x${n} maze`}</Text>
+          <ModalBody fontSize="2xl">
+            <Stack h="20vh">
+              <Text className="itim">{`cleared the ${n}x${n} maze`}</Text>
+              <Text className="itim">{`clear time: ${clearTime}`}</Text>
+              {n == 8 && <Text className="itim">clear all stage!</Text>}
+              <Spacer />
+            </Stack>
           </ModalBody>
           <ModalFooter>
             <Button marginRight={2} onClick={() => router.back()}>
               HOME
             </Button>
-            <Button
-              onClick={() => {
-                setLoading(true);
-                setN((prev) => prev + 1);
-                onClose();
-              }}
-            >
-              NEXT
-            </Button>
+            {n < 8 && (
+              <Button
+                onClick={() => {
+                  setLoading(true);
+                  setN((prev) => prev + 1);
+                  onClose();
+                }}
+              >
+                NEXT
+              </Button>
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>

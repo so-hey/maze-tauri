@@ -1,6 +1,6 @@
 "use client";
 
-import { clickButtonSound } from "@/sounds";
+import { useSounds } from "@/sounds/sounds";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -18,6 +18,8 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Description() {
+  const { clickButtonSound } = useSounds();
+
   const router = useRouter();
   const defaultButtonStyles = useStyleConfig("Button", { variant: "ghost" });
 
