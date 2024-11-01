@@ -1,5 +1,6 @@
 "use client";
 
+import { clickButtonSound } from "@/sounds";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -14,16 +15,40 @@ import {
 } from "@chakra-ui/react";
 import { Image } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Description() {
   const router = useRouter();
   const defaultButtonStyles = useStyleConfig("Button", { variant: "ghost" });
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case "Backspace":
+        clickButtonSound();
+        router.back();
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  });
+
   return (
     <Stack height="100%" spacing={0} overflowY="hidden">
       <Stack direction="row">
         <Button
           variant="ghost"
-          onClick={() => router.back()}
+          onClick={() => {
+            clickButtonSound();
+            router.back();
+          }}
           paddingLeft={1}
           marginTop={2}
           marginLeft={2}

@@ -1,5 +1,6 @@
 "use client";
 
+import { clickButtonSound } from "@/sounds";
 import { Button, Heading, Stack, Text, useStyleConfig } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -8,9 +9,11 @@ export default function Home() {
   const handleKeyDown = (e: KeyboardEvent) => {
     switch (e.key) {
       case "s":
+        clickButtonSound();
         router.push("game");
         break;
       case "h":
+        clickButtonSound();
         router.push("description");
       default:
         break;
@@ -53,6 +56,7 @@ export default function Home() {
           colorScheme="blue"
           w={350}
           onClick={() => {
+            clickButtonSound();
             router.push("game");
           }}
           _hover={{
@@ -68,6 +72,7 @@ export default function Home() {
           colorScheme="green"
           w={350}
           onClick={() => {
+            clickButtonSound();
             router.push("description");
           }}
           _hover={{

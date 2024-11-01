@@ -1,6 +1,13 @@
 "use client";
 
 import {
+  clickButtonSound,
+  clickCommandSound,
+  runCommandSound,
+  clearStageSound,
+  moveMazeSound,
+} from "@/sounds";
+import {
   ArrowBackIcon,
   ArrowDownIcon,
   ArrowForwardIcon,
@@ -66,6 +73,7 @@ export default function Maze() {
     getMaze(n);
     setCommands([]);
     setCommandIndex(null);
+    setIsRunning(false);
   }, [n]);
 
   const getMaze = async (n: number) => {
@@ -113,18 +121,29 @@ export default function Maze() {
   const move = async (dx: number, dy: number) => {
     if (board.current) {
       setPlayer((prevPlayer) => {
-        invoke("move_maze", {
-          board: board.current,
-          player: prevPlayer,
-          dx: dx,
-          dy: dy,
-        }).then((response) => {
-          const { movedPlayer } = response as MoveResponse;
-          setPlayer(movedPlayer);
-          if (board.current![movedPlayer[0]][movedPlayer[1]] == 3) {
-            onOpen();
-          }
-        });
+        if (board.current![prevPlayer![0]][prevPlayer![1]] != 3) {
+          invoke("move_maze", {
+            board: board.current,
+            player: prevPlayer,
+            dx: dx,
+            dy: dy,
+          }).then(async (response) => {
+            const { movedPlayer } = response as MoveResponse;
+            console.log(prevPlayer);
+            console.log(movedPlayer);
+            setPlayer(movedPlayer);
+            if (board.current![movedPlayer[0]][movedPlayer[1]] == 3) {
+              onOpen();
+              await new Promise((res) => setTimeout(res, 300));
+              clearStageSound();
+            } else if (
+              prevPlayer![0] != movedPlayer[0] ||
+              prevPlayer![1] != movedPlayer[1]
+            ) {
+              moveMazeSound();
+            }
+          });
+        }
         return prevPlayer;
       });
     }
@@ -136,33 +155,46 @@ export default function Maze() {
     }
     switch (e.key) {
       case "ArrowUp":
+        clickCommandSound();
         setCommands((prev) => prev.concat(["ArrowUp"]));
         break;
       case "ArrowDown":
+        clickCommandSound();
         setCommands((prev) => prev.concat(["ArrowDown"]));
         break;
       case "ArrowLeft":
+        clickCommandSound();
         setCommands((prev) => prev.concat(["ArrowLeft"]));
         break;
       case "ArrowRight":
+        clickCommandSound();
         setCommands((prev) => prev.concat(["ArrowRight"]));
         break;
       case "PageUp":
+        clickCommandSound();
         setCommands((prev) => prev.concat(["ArrowUp"]));
         break;
       case "PageDown":
+        clickCommandSound();
         setCommands((prev) => prev.concat(["ArrowDown"]));
         break;
       case "Home":
+        clickCommandSound();
         setCommands((prev) => prev.concat(["ArrowLeft"]));
         break;
       case "End":
+        clickCommandSound();
         setCommands((prev) => prev.concat(["ArrowRight"]));
         break;
       case "Enter":
+        runCommandSound();
         if (commands.length > 0) {
           runCommands();
         }
+        break;
+      case "Backspace":
+        clickButtonSound();
+        router.back();
         break;
       default:
         break;
@@ -184,7 +216,10 @@ export default function Maze() {
       <Stack direction="row">
         <Button
           variant="ghost"
-          onClick={() => router.back()}
+          onClick={() => {
+            clickButtonSound();
+            router.back();
+          }}
           paddingLeft={1}
           marginTop={2}
           marginLeft={2}
@@ -354,9 +389,10 @@ export default function Maze() {
                     variant="ghost"
                     size="lg"
                     aria-label="up"
-                    onClick={() =>
-                      setCommands((prev) => prev.concat(["ArrowUp"]))
-                    }
+                    onClick={() => {
+                      clickCommandSound();
+                      setCommands((prev) => prev.concat(["ArrowUp"]));
+                    }}
                     icon={<ArrowUpIcon boxSize={6} />}
                   />
                 </GridItem>
@@ -372,9 +408,10 @@ export default function Maze() {
                     variant="ghost"
                     size="lg"
                     aria-label="left"
-                    onClick={() =>
-                      setCommands((prev) => prev.concat(["ArrowLeft"]))
-                    }
+                    onClick={() => {
+                      clickCommandSound();
+                      setCommands((prev) => prev.concat(["ArrowLeft"]));
+                    }}
                     icon={<ArrowBackIcon boxSize={6} />}
                   />
                 </GridItem>
@@ -388,6 +425,7 @@ export default function Maze() {
                     size="lg"
                     aria-label="run"
                     onClick={() => {
+                      runCommandSound();
                       runCommands();
                     }}
                     icon={
@@ -405,9 +443,10 @@ export default function Maze() {
                     variant="ghost"
                     size="lg"
                     aria-label="right"
-                    onClick={() =>
-                      setCommands((prev) => prev.concat(["ArrowRight"]))
-                    }
+                    onClick={() => {
+                      clickCommandSound();
+                      setCommands((prev) => prev.concat(["ArrowRight"]));
+                    }}
                     icon={<ArrowForwardIcon boxSize={6} />}
                   />
                 </GridItem>
@@ -423,9 +462,10 @@ export default function Maze() {
                     variant="ghost"
                     size="lg"
                     aria-label="down"
-                    onClick={() =>
-                      setCommands((prev) => prev.concat(["ArrowDown"]))
-                    }
+                    onClick={() => {
+                      clickCommandSound();
+                      setCommands((prev) => prev.concat(["ArrowDown"]));
+                    }}
                     icon={<ArrowDownIcon boxSize={6} />}
                   />
                 </GridItem>
