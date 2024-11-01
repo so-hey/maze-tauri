@@ -1,4 +1,4 @@
-name: Build Tauri App for Mac
+name: Build Tauri App for Mac and Windows
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  build-macos:
     runs-on: macos-latest
 
     steps:
@@ -24,10 +24,36 @@ jobs:
       - name: Build Tauri app
         run: npx tauri build
 
-      - name: Upload Release Artifact
+      - name: Upload Mac Release Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: maze_0.1.0_x64-setup
+          name: maze_macos
           path: |
             /Users/runner/work/maze-tauri/maze-tauri/src-tauri/target/release/bundle/macos/maze.app
             /Users/runner/work/maze-tauri/maze-tauri/src-tauri/target/release/bundle/dmg/maze_0.1.0_aarch64.dmg
+
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.1.0"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Tauri app
+        run: npx tauri build
+
+      - name: Upload Windows Release Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: maze_windows
+          path: |
+            /Users/runner/work/src-tauri/target/release/bundle/msi/maze_0.1.0_x64_en-US.msi
+            /Users/runner/work/src-tauri/target/release/bundle/nsis/maze_0.1.0_x64_setup.exe
