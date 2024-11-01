@@ -180,7 +180,7 @@ export default function Maze() {
   const defaultButtonStyles = useStyleConfig("Button", { variant: "ghost" });
 
   return (
-    <Stack spacing={0}>
+    <Stack spacing={0} overflowY="hidden">
       <Stack direction="row">
         <Button
           variant="ghost"

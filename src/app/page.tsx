@@ -36,7 +36,7 @@ export default function Home() {
   });
 
   return (
-    <Stack>
+    <Stack overflowY="hidden">
       <Stack paddingTop="220px" paddingBottom="160px">
         <Heading
           color="purple.800"
