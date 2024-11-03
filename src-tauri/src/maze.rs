@@ -1,8 +1,8 @@
 use rand::Rng;
 use serde::{Deserialize, Serialize};
-use std::collections::{HashMap, VecDeque};
+use std::collections::VecDeque;
 
-const FIVE_MAZE: [[[u8; 7]; 7]; 3] = [
+const THREE_MAZE: [[[u8; 7]; 7]; 12] = [
     [
         [0, 0, 0, 0, 0, 0, 0],
         [0, 2, 0, 1, 1, 1, 0],
@@ -30,6 +30,87 @@ const FIVE_MAZE: [[[u8; 7]; 7]; 3] = [
         [0, 1, 0, 1, 0, 3, 0],
         [0, 0, 0, 0, 0, 0, 0],
     ],
+    [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 0, 1, 1, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 1, 1, 0, 1, 0],
+        [0, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 0, 1, 1, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 1, 1, 0, 1, 0],
+        [0, 0, 0, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 0, 1, 1, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 0, 1, 0],
+        [0, 1, 1, 1, 0, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 0, 1, 1, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 1, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 0, 0],
+        [0, 1, 0, 1, 1, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 1, 1, 1, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 1, 1, 1, 1, 0],
+        [0, 1, 0, 1, 0, 0, 0],
+        [0, 1, 0, 1, 1, 1, 0],
+        [0, 1, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 1, 1, 1, 1, 0],
+        [0, 1, 0, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 0, 1, 0],
+        [0, 1, 1, 1, 0, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ],
+    [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 2, 1, 1, 1, 1, 0],
+        [0, 1, 0, 0, 0, 1, 0],
+        [0, 1, 0, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 3, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ],
 ];
 
 #[derive(Serialize, Deserialize)]
@@ -39,20 +120,19 @@ pub struct Maze {
 }
 
 #[tauri::command]
-pub fn create_maze(mut n: usize) -> Maze {
-    n = 2 * n - 1;
-    if n == 5 {
+pub fn create_maze(n: usize) -> Maze {
+    if n == 3 {
         let mut rng = rand::thread_rng();
-        let r = rng.gen_range(0..6);
+        let r = rng.gen_range(0..24);
         return Maze {
             board: (0..7)
                 .map(|i| {
                     (0..7)
                         .map(|j| {
-                            if r < 3 {
-                                return FIVE_MAZE[r % 3][i][j];
+                            if r < 12 {
+                                return THREE_MAZE[r % 12][i][j];
                             } else {
-                                return FIVE_MAZE[r % 3][j][i];
+                                return THREE_MAZE[r % 12][j][i];
                             }
                         })
                         .collect()
@@ -61,12 +141,8 @@ pub fn create_maze(mut n: usize) -> Maze {
             player: (1, 1),
         };
     } else {
-        let m = n + 2;
-        let direction: HashMap<usize, (isize, isize)> =
-            [(0, (0, -1)), (1, (1, 0)), (2, (0, 1)), (3, (-1, 0))]
-                .iter()
-                .cloned()
-                .collect();
+        let m = 2 * n + 1;
+        let direction: [(isize, isize); 4] = [(0, -1), (1, 0), (0, 1), (-1, 0)];
 
         loop {
             // 0: 壁, 1: 通路, 2: 始点, 3: 終点
@@ -106,7 +182,7 @@ pub fn create_maze(mut n: usize) -> Maze {
 
             while let Some((x, y)) = queue.pop_front() {
                 let mut dir = rng.gen_range(0..4);
-                let (mut dx, mut dy) = direction[&dir];
+                let (mut dx, mut dy) = direction[dir];
                 for _ in 0..4 {
                     if in_board(m, x + 2 * dx, y + 2 * dy) {
                         if board[(y + 2 * dy) as usize][(x + 2 * dx) as usize] == 1 {
@@ -122,11 +198,11 @@ pub fn create_maze(mut n: usize) -> Maze {
                             break;
                         } else {
                             dir = (dir + 1) % 4;
-                            (dx, dy) = direction[&dir];
+                            (dx, dy) = direction[dir];
                         }
                     } else {
                         dir = (dir + 1) % 4;
-                        (dx, dy) = direction[&dir];
+                        (dx, dy) = direction[dir];
                     }
                 }
             }
@@ -140,7 +216,7 @@ pub fn create_maze(mut n: usize) -> Maze {
                     break;
                 }
                 for i in 0..4 {
-                    let (dx, dy) = direction[&i];
+                    let (dx, dy) = direction[i];
                     let nx = x + dx;
                     let ny = y + dy;
                     if in_board(m, nx, ny) {
@@ -172,27 +248,11 @@ pub fn create_maze(mut n: usize) -> Maze {
             // }
             // board[1][1] = 2;
 
-            if n <= 9 {
-                if step[n][n] > (2 * (n - 1)) as isize {
-                    return Maze {
-                        board,
-                        player: (1, 1),
-                    };
-                }
-            } else if n <= 17 {
-                if step[n][n] > (2 * (n + 2)) as isize {
-                    return Maze {
-                        board,
-                        player: (1, 1),
-                    };
-                }
-            } else {
-                if step[n][n] > (2 * (n + 5)) as isize {
-                    return Maze {
-                        board,
-                        player: (1, 1),
-                    };
-                }
+            if step[n][n] >= (m + 2 * (n / 2)) as isize {
+                return Maze {
+                    board,
+                    player: (1, 1),
+                };
             }
         }
     }
