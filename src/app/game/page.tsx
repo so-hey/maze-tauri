@@ -60,7 +60,7 @@ export default function Maze() {
     moveMazeSound,
   } = useSounds();
 
-  const [n, setN] = useState(3);
+  const [n, setN] = useState<number>(0);
   const board = useRef<number[][] | null>(null);
   const [player, setPlayer] = useState<[number, number] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -75,14 +75,17 @@ export default function Maze() {
 
   useEffect(() => {
     let saved_n = n;
-    if (n == 3) {
+    if (n == 0) {
       const saved_value = localStorage.getItem("n");
       if (saved_value) {
         saved_n = Number(saved_value);
         setN(saved_n);
+      } else {
+        saved_n = 3;
+        setN(3);
       }
     }
-    getMaze(n);
+    getMaze(saved_n);
     setCommands([]);
     setCommandIndex(null);
     setIsRunning(false);
@@ -122,13 +125,13 @@ export default function Maze() {
             break;
         }
         if (index === commands.length - 1) {
-          await new Promise((res) => setTimeout(res, 800));
+          await new Promise((res) => setTimeout(res, 1000));
           setPlayer([1, 1]);
           setIsRunning(false);
           setCommands([]);
           setCommandIndex(null);
         }
-      }, index * 600);
+      }, index * 800);
     });
   };
 
@@ -149,6 +152,7 @@ export default function Maze() {
               setClearTime(
                 `${Math.floor(time / 3600000) % 24}:${("00" + (Math.floor(time / 60000) % 60)).slice(-2)}:${("00" + (Math.floor(time / 1000) % 60)).slice(-2)}.${("00" + Math.floor((time % 1000) / 100)).slice(-2)}`
               );
+              await new Promise((res) => setTimeout(res, 400));
               onOpen();
               await new Promise((res) => setTimeout(res, 300));
               clearStageSound();
@@ -167,47 +171,60 @@ export default function Maze() {
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (isOpen) {
-      return;
+      switch (e.key) {
+        case "Home":
+        case "ArrowLeft":
+          if (n == 8) {
+            localStorage.clear();
+          } else {
+            localStorage.setItem("n", JSON.stringify(n + 1));
+          }
+          router.back();
+          break;
+        case "End":
+        case "ArrowRight":
+          if (n < 8) {
+            setLoading(true);
+            setN((prev) => prev + 1);
+            onClose();
+          }
+          break;
+        default:
+          break;
+      }
+    } else if (board.current && !isRunning) {
+      switch (e.key) {
+        case "ArrowUp":
+        case "PageUp":
+          clickCommandSound();
+          setCommands((prev) => prev.concat(["ArrowUp"]));
+          break;
+        case "ArrowDown":
+        case "PageDown":
+          clickCommandSound();
+          setCommands((prev) => prev.concat(["ArrowDown"]));
+          break;
+        case "ArrowLeft":
+        case "Home":
+          clickCommandSound();
+          setCommands((prev) => prev.concat(["ArrowLeft"]));
+          break;
+        case "ArrowRight":
+        case "End":
+          clickCommandSound();
+          setCommands((prev) => prev.concat(["ArrowRight"]));
+          break;
+        case "Enter":
+          if (commands.length > 0) {
+            runCommandSound();
+            runCommands();
+          }
+          break;
+        default:
+          break;
+      }
     }
     switch (e.key) {
-      case "ArrowUp":
-        clickCommandSound();
-        setCommands((prev) => prev.concat(["ArrowUp"]));
-        break;
-      case "ArrowDown":
-        clickCommandSound();
-        setCommands((prev) => prev.concat(["ArrowDown"]));
-        break;
-      case "ArrowLeft":
-        clickCommandSound();
-        setCommands((prev) => prev.concat(["ArrowLeft"]));
-        break;
-      case "ArrowRight":
-        clickCommandSound();
-        setCommands((prev) => prev.concat(["ArrowRight"]));
-        break;
-      case "PageUp":
-        clickCommandSound();
-        setCommands((prev) => prev.concat(["ArrowUp"]));
-        break;
-      case "PageDown":
-        clickCommandSound();
-        setCommands((prev) => prev.concat(["ArrowDown"]));
-        break;
-      case "Home":
-        clickCommandSound();
-        setCommands((prev) => prev.concat(["ArrowLeft"]));
-        break;
-      case "End":
-        clickCommandSound();
-        setCommands((prev) => prev.concat(["ArrowRight"]));
-        break;
-      case "Enter":
-        runCommandSound();
-        if (commands.length > 0) {
-          runCommands();
-        }
-        break;
       case "Backspace":
         clickButtonSound();
         localStorage.setItem("n", JSON.stringify(n));
@@ -235,7 +252,11 @@ export default function Maze() {
           variant="ghost"
           onClick={() => {
             clickButtonSound();
-            localStorage.setItem("n", JSON.stringify(n));
+            if (n == 3) {
+              localStorage.clear();
+            } else {
+              localStorage.setItem("n", JSON.stringify(n));
+            }
             router.back();
           }}
           paddingLeft={1}
@@ -380,7 +401,7 @@ export default function Maze() {
                     <Box
                       position="absolute"
                       top={0}
-                      left={`calc(calc(100%-${(pathSize + wallSize) * n + wallSize}0)/2)`}
+                      left={`calc(calc(100%-${((pathSize + wallSize) * n + wallSize) * mag}vh)/2)`}
                       w={`${((pathSize + wallSize) * n + wallSize) * mag}vh`}
                       h={`${((pathSize + wallSize) * n + wallSize) * mag}vh`}
                       bg="rgba(0, 0, 0, 1.0)"
@@ -391,6 +412,31 @@ export default function Maze() {
                         WebkitMaskImage: `radial-gradient(circle at ${(((pathSize + wallSize) * (player![0] - 1)) / 2 + wallSize + pathSize / 2) * mag}vh ${(((pathSize + wallSize) * (player![1] - 1)) / 2 + wallSize + pathSize / 2) * mag}vh, transparent ${pathSize * 3.75}px, rgba(0, 0, 0, 1.0) ${pathSize * 0.75 * mag}vh)`,
                       }}
                     />
+                    <Box
+                      position="absolute"
+                      top={0}
+                      left={`calc(calc(100%-${((pathSize + wallSize) * n + wallSize) * mag}vh)/2)`}
+                      w={`${((pathSize + wallSize) * n + wallSize) * mag}vh`}
+                      h={`${((pathSize + wallSize) * n + wallSize) * mag}vh`}
+                      padding={`calc(${wallSize * mag}vh/2)`}
+                      zIndex={2}
+                      pointerEvents="none"
+                    >
+                      <Stack w="100%" h="100%" spacing={0}>
+                        {Array.from({ length: n }).map((_, row) => (
+                          <Grid
+                            h={`calc(${(pathSize + wallSize) * mag}vh)`}
+                            w="100%"
+                            templateColumns={`repeat(${n}, 1fr)`}
+                            key={row}
+                          >
+                            {Array.from({ length: n }).map((_, col) => (
+                              <GridItem key={col} border="0.1px solid #333" />
+                            ))}
+                          </Grid>
+                        ))}
+                      </Stack>
+                    </Box>
                   </Stack>
                 </Flex>
               </Stack>
@@ -520,7 +566,7 @@ export default function Maze() {
               marginRight={2}
               onClick={() => {
                 if (n == 8) {
-                  localStorage.setItem("n", JSON.stringify(3));
+                  localStorage.clear();
                 } else {
                   localStorage.setItem("n", JSON.stringify(n + 1));
                 }
@@ -529,6 +575,19 @@ export default function Maze() {
             >
               HOME
             </Button>
+            <Spacer />
+            <Button
+              marginRight={2}
+              onClick={() => {
+                setLoading(true);
+                localStorage.setItem("n", JSON.stringify(n));
+                setN(0);
+                onClose();
+              }}
+            >
+              RETRY
+            </Button>
+            <Spacer />
             {n < 8 && (
               <Button
                 onClick={() => {

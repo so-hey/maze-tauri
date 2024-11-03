@@ -121,7 +121,7 @@ pub struct Maze {
 
 #[tauri::command]
 pub fn create_maze(n: usize) -> Maze {
-    if n == 3 {
+    if n <= 3 {
         let mut rng = rand::thread_rng();
         let r = rng.gen_range(0..24);
         return Maze {
@@ -154,7 +154,7 @@ pub fn create_maze(n: usize) -> Maze {
                 board[m - 1][i] = 0;
             }
             board[1][1] = 2;
-            board[n][n] = 3;
+            board[m - 2][m - 2] = 3;
 
             let mut rng = rand::thread_rng();
             let mut queue: VecDeque<(isize, isize)> = if rng.gen_range(0..2) == 0 {
@@ -172,13 +172,13 @@ pub fn create_maze(n: usize) -> Maze {
 
             if rng.gen_range(0..2) == 0 {
                 board[1][2] = 0;
-                board[n][n - 1] = 0;
+                board[m - 2][m - 2 - 1] = 0;
             } else {
                 board[2][1] = 0;
-                board[n - 1][n] = 0;
+                board[m - 2 - 1][m - 2] = 0;
             }
             board[2][2] = 0;
-            board[n - 1][n - 1] = 0;
+            board[m - 2 - 1][m - 2 - 1] = 0;
 
             while let Some((x, y)) = queue.pop_front() {
                 let mut dir = rng.gen_range(0..4);
@@ -212,7 +212,7 @@ pub fn create_maze(n: usize) -> Maze {
             step[1][1] = 0;
             while let Some((x, y)) = stack.pop() {
                 // 正解の道は一本しかないため，終点に到達したら終了
-                if (x, y) == (n as isize, n as isize) {
+                if (x, y) == (n as isize - 2, n as isize - 2) {
                     break;
                 }
                 for i in 0..4 {
@@ -231,9 +231,9 @@ pub fn create_maze(n: usize) -> Maze {
             }
 
             // 最短経路を色づける
-            // let mut cnt = step[n][n] - 1;
-            // let mut x = n;
-            // let mut y = n;
+            // let mut cnt = step[m - 2][m - 2] - 1;
+            // let mut x = m - 2;
+            // let mut y = m - 2;
             // while (x, y) != (1, 1) {
             //     for i in 0..4 {
             //         let (dx, dy) = direction[&i];
@@ -248,7 +248,7 @@ pub fn create_maze(n: usize) -> Maze {
             // }
             // board[1][1] = 2;
 
-            if step[n][n] >= (m + 2 * (n / 2)) as isize {
+            if step[m - 2][m - 2] >= (m + 2 * (n / 2)) as isize {
                 return Maze {
                     board,
                     player: (1, 1),

@@ -12,7 +12,9 @@ const useAudio = (url: string) => {
 
       const currentAudio = audioRef.current;
       return () => {
-        currentAudio.pause();
+        if (currentAudio.paused) {
+          currentAudio.pause();
+        }
         currentAudio.currentTime = 0;
       };
     }
@@ -20,7 +22,9 @@ const useAudio = (url: string) => {
 
   const play = () => {
     if (audioRef.current) {
-      audioRef.current.pause();
+      if (audioRef.current.paused) {
+        audioRef.current.pause();
+      }
       audioRef.current.currentTime = 0;
       audioRef.current.play();
     }
