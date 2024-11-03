@@ -2,8 +2,10 @@
 
 ソフトウェア開発論の授業で作成した迷路のアプリです．
 
+![](public/home_screen.png)
+
 ![](public/game_screen.png)
 
-Actionsの最新のコミットから自分のOSに対応したインストーラをダウンロードして実行してください．
+![](public/description_screen.png)
 
-ゲームのルールについてはゲーム内の`HOW TO PLAY`を参照してください．
+Actionsの最新のコミットから自分のOSに対応したインストーラをダウンロードして実行してください．

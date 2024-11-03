@@ -125,13 +125,13 @@ export default function Maze() {
             break;
         }
         if (index === commands.length - 1) {
-          await new Promise((res) => setTimeout(res, 1000));
+          await new Promise((res) => setTimeout(res, 900));
           setPlayer([1, 1]);
           setIsRunning(false);
           setCommands([]);
           setCommandIndex(null);
         }
-      }, index * 800);
+      }, index * 700);
     });
   };
 
