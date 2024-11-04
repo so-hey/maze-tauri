@@ -1,6 +1,6 @@
 "use client";
 
-import { useSounds } from "@/sounds/sounds";
+import { BGMPlayer, useSounds } from "@/sounds/sounds";
 import {
   ArrowBackIcon,
   ArrowDownIcon,
@@ -52,6 +52,8 @@ const maxN = 8;
 const mag = 1.4;
 
 export default function Maze() {
+  BGMPlayer();
+
   const {
     clickButtonSound,
     clickCommandSound,
@@ -147,20 +149,21 @@ export default function Maze() {
           }).then(async (response) => {
             const { movedPlayer } = response as MoveResponse;
             setPlayer(movedPlayer);
-            if (board.current![movedPlayer[0]][movedPlayer[1]] == 3) {
-              const time = Date.now() - startTime;
-              setClearTime(
-                `${Math.floor(time / 3600000) % 24}:${("00" + (Math.floor(time / 60000) % 60)).slice(-2)}:${("00" + (Math.floor(time / 1000) % 60)).slice(-2)}.${("00" + Math.floor((time % 1000) / 100)).slice(-2)}`
-              );
-              await new Promise((res) => setTimeout(res, 400));
-              onOpen();
-              await new Promise((res) => setTimeout(res, 300));
-              clearStageSound();
-            } else if (
+            if (
               prevPlayer![0] != movedPlayer[0] ||
               prevPlayer![1] != movedPlayer[1]
             ) {
               moveMazeSound();
+              if (board.current![movedPlayer[0]][movedPlayer[1]] == 3) {
+                const time = Date.now() - startTime;
+                setClearTime(
+                  `${Math.floor(time / 3600000) % 24}:${("00" + (Math.floor(time / 60000) % 60)).slice(-2)}:${("00" + (Math.floor(time / 1000) % 60)).slice(-2)}.${("00" + Math.floor((time % 1000) / 100)).slice(-2)}`
+                );
+                await new Promise((res) => setTimeout(res, 400));
+                onOpen();
+                await new Promise((res) => setTimeout(res, 300));
+                clearStageSound();
+              }
             }
           });
         }
@@ -250,14 +253,13 @@ export default function Maze() {
       <Stack direction="row">
         <Button
           variant="ghost"
-          onClick={() => {
-            clickButtonSound();
+          onClick={async () => {
+            clickButtonSound(() => router.back());
             if (n == 3) {
               localStorage.clear();
             } else {
               localStorage.setItem("n", JSON.stringify(n));
             }
-            router.back();
           }}
           paddingLeft={1}
           marginTop={2}

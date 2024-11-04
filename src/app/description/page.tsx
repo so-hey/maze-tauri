@@ -26,8 +26,7 @@ export default function Description() {
   const handleKeyDown = (e: KeyboardEvent) => {
     switch (e.key) {
       case "Backspace":
-        clickButtonSound();
-        router.back();
+        clickButtonSound(() => router.back());
         break;
       default:
         break;
@@ -48,8 +47,8 @@ export default function Description() {
         <Button
           variant="ghost"
           onClick={() => {
-            clickButtonSound();
-            router.back();
+            console.log("from description");
+            clickButtonSound(() => router.back());
           }}
           paddingLeft={1}
           marginTop={2}

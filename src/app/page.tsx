@@ -11,17 +11,15 @@ export default function Home() {
   const handleKeyDown = (e: KeyboardEvent) => {
     switch (e.key) {
       case "n":
-        clickButtonSound();
+        clickButtonSound(() => router.push("game"));
         localStorage.clear();
-        router.push("game");
         break;
       case "c":
-        clickButtonSound();
-        router.push("game");
+        clickButtonSound(() => router.push("game"));
         break;
       case "h":
-        clickButtonSound();
-        router.push("description");
+        clickButtonSound(() => router.push("description"));
+        break;
       default:
         break;
     }
@@ -77,9 +75,8 @@ export default function Home() {
           colorScheme="blue"
           w={350}
           onClick={() => {
-            clickButtonSound();
+            clickButtonSound(() => router.push("game"));
             localStorage.clear();
-            router.push("game");
           }}
           _hover={{
             ...defaultBlueButtonStyles,
@@ -95,8 +92,7 @@ export default function Home() {
             colorScheme="teal"
             w={350}
             onClick={() => {
-              clickButtonSound();
-              router.push("game");
+              clickButtonSound(() => router.push("game"));
             }}
             _hover={{
               ...defaultTealButtonStyles,
@@ -112,8 +108,8 @@ export default function Home() {
           colorScheme="green"
           w={350}
           onClick={() => {
-            clickButtonSound();
-            router.push("description");
+            console.log("from home");
+            clickButtonSound(() => router.push("description"));
           }}
           _hover={{
             ...defaultGreenButtonStyles,
