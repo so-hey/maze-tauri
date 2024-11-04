@@ -2,6 +2,28 @@
 
 import { useEffect, useRef } from "react";
 
+export const BGMPlayer = () => {
+  const bgmRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (typeof window != "undefined") {
+      bgmRef.current = new Audio("/bgm.mp3");
+      bgmRef.current.preload = "auto";
+
+      bgmRef.current.loop = true;
+      bgmRef.current.volume = 0.7;
+      bgmRef.current.play();
+
+      return () => {
+        if (bgmRef.current) {
+          bgmRef.current.pause();
+          bgmRef.current.currentTime = 0;
+        }
+      };
+    }
+  }, []);
+};
+
 const useAudio = (url: string) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -11,20 +33,20 @@ const useAudio = (url: string) => {
       audioRef.current.preload = "auto";
 
       const currentAudio = audioRef.current;
+
+      currentAudio.addEventListener("ended", () => {
+        currentAudio.pause();
+      });
+
       return () => {
-        if (currentAudio.paused) {
-          currentAudio.pause();
-        }
         currentAudio.currentTime = 0;
       };
     }
   }, [url]);
 
-  const play = () => {
+  const play = (ended: () => void = () => {}) => {
     if (audioRef.current) {
-      if (audioRef.current.paused) {
-        audioRef.current.pause();
-      }
+      audioRef.current.addEventListener("ended", ended);
       audioRef.current.currentTime = 0;
       audioRef.current.play();
     }
