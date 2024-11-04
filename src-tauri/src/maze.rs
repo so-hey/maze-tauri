@@ -182,8 +182,8 @@ pub fn create_maze(n: usize) -> Maze {
 
             while let Some((x, y)) = queue.pop_front() {
                 let mut dir = rng.gen_range(0..4);
-                let (mut dx, mut dy) = direction[dir];
                 for _ in 0..4 {
+                    let (dx, dy) = direction[dir];
                     if in_board(m, x + 2 * dx, y + 2 * dy) {
                         if board[(y + 2 * dy) as usize][(x + 2 * dx) as usize] == 1 {
                             board[(y + dy) as usize][(x + dx) as usize] = 0;
@@ -198,11 +198,9 @@ pub fn create_maze(n: usize) -> Maze {
                             break;
                         } else {
                             dir = (dir + 1) % 4;
-                            (dx, dy) = direction[dir];
                         }
                     } else {
                         dir = (dir + 1) % 4;
-                        (dx, dy) = direction[dir];
                     }
                 }
             }
@@ -212,43 +210,46 @@ pub fn create_maze(n: usize) -> Maze {
             step[1][1] = 0;
             while let Some((x, y)) = stack.pop() {
                 // 正解の道は一本しかないため，終点に到達したら終了
-                if (x, y) == (n as isize - 2, n as isize - 2) {
+                if (x, y) == (m as isize - 2, m as isize - 2) {
                     break;
                 }
                 for i in 0..4 {
                     let (dx, dy) = direction[i];
-                    let nx = x + dx;
-                    let ny = y + dy;
-                    if in_board(m, nx, ny) {
-                        if board[ny as usize][nx as usize] != 0
-                            && step[ny as usize][nx as usize] > step[y as usize][x as usize] + 1
+                    if in_board(m, x + dx, y + dy) {
+                        if board[(y + dy) as usize][(x + dx) as usize] != 0
+                            && step[(y + 2 * dy) as usize][(x + 2 * dx) as usize]
+                                > step[y as usize][x as usize] + 1
                         {
-                            step[ny as usize][nx as usize] = step[y as usize][x as usize] + 1;
-                            stack.push((nx, ny));
+                            step[(y + 2 * dy) as usize][(x + 2 * dx) as usize] =
+                                step[y as usize][x as usize] + 1;
+                            stack.push((x + 2 * dx, y + 2 * dy));
                         }
                     }
                 }
             }
 
-            // 最短経路を色づける
+            // // 最短経路を色づける
             // let mut cnt = step[m - 2][m - 2] - 1;
-            // let mut x = m - 2;
-            // let mut y = m - 2;
+            // let mut x = m as isize - 2;
+            // let mut y = m as isize - 2;
             // while (x, y) != (1, 1) {
             //     for i in 0..4 {
-            //         let (dx, dy) = direction[&i];
-            //         if step[(x as isize + dx) as usize][(y as isize + dy) as usize] == cnt {
-            //             x = (x as isize + dx) as usize;
-            //             y = (y as isize + dy) as usize;
-            //             board[x][y] = 4;
-            //             cnt -= 1;
-            //             break;
+            //         let (dx, dy) = direction[i];
+            //         if in_board(m, x + 2 * dx, y + 2 * dy) {
+            //             if step[(x + 2 * dx) as usize][(y + 2 * dy) as usize] == cnt {
+            //                 board[(x + dx) as usize][(y + dy) as usize] = 4;
+            //                 board[(x + 2 * dx) as usize][(y + 2 * dy) as usize] = 4;
+            //                 x = x + 2 * dx;
+            //                 y = y + 2 * dy;
+            //                 cnt -= 1;
+            //                 break;
+            //             }
             //         }
             //     }
             // }
             // board[1][1] = 2;
 
-            if step[m - 2][m - 2] >= (m + 2 * (n / 2)) as isize {
+            if step[m - 2][m - 2] >= (2 * (n - 1) + 2 * ((n + 1) / 2)) as isize {
                 return Maze {
                     board,
                     player: (1, 1),
