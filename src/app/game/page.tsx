@@ -359,7 +359,6 @@ export default function Maze() {
                 id="maze"
                 h="58vh"
                 overflow={"auto"}
-                aspectRatio={1}
                 marginX="auto"
                 position="relative"
                 spacing={0}
