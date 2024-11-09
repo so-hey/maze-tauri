@@ -1,0 +1,165 @@
+<mxfile host="65bd71144e">
+    <diagram id="KNvpiv4oGr-y5qv0-3Jw" name="ページ1">
+        <mxGraphModel dx="1333" dy="912" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="6" value="ホーム画面" style="whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="94.73684210526315" y="517.8" width="145.26315789473685" height="76.08" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1;" edge="1" parent="1" target="6">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="22.105263157894736" y="555.84" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="49" style="edgeStyle=none;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.998;entryY=0.362;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;entryPerimeter=0;" edge="1" parent="1" source="12" target="6">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" style="edgeStyle=none;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;" edge="1" parent="1" source="14" target="6">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="240" y="555.84" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="説明画面" style="whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="348.9473684210526" y="581.2" width="145.26315789473685" height="76.08" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" style="edgeStyle=none;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1;" edge="1" parent="1" source="6" target="14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="" style="shape=waypoint;size=6;pointerEvents=1;points=[];fillColor=none;resizable=0;rotatable=0;perimeter=centerPerimeter;snapToPoint=1;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="10" y="545.84" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;「HOW TO PLAY」ボタン&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="179.47315789473686" y="600.22" width="169.4736842105263" height="38.04" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="「NEW GAME」ボタン" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="136.0021052631579" y="372.99999999999994" width="124" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;「CONTINUE」ボタン&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=12;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="214.47421052631577" y="462" width="120" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="コマンド入力" style="whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="663.6842105263158" y="302.24" width="121.05263157894737" height="50.72" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.629;entryY=1.021;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;" edge="1" parent="1" source="34" target="32">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="830" y="390"/>
+                            <mxPoint x="760" y="390"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="34" value="迷路移動" style="whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="821.0526315789474" y="302.24" width="121.05263157894737" height="50.72" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;" edge="1" parent="1" source="32" target="34">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="「BACK」ボタン" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="251.94578947368421" y="543.8399999999999" width="97" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="3をnに代入" style="whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="385.2631578947368" y="175.44" width="121.05263157894737" height="50.72" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" style="edgeStyle=none;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontFamily=Helvetica;fontSize=12;fontColor=default;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontStyle=1;" edge="1" parent="1" source="6" target="39">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385.2631578947368" y="188.12" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" value="読みこんだデータを&lt;br&gt;nに代入" style="whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="385.2631578947368" y="429.04" width="121.05263157894737" height="50.72" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" style="edgeStyle=none;html=1;exitX=1;exitY=0;exitDx=0;exitDy=0;fontFamily=Helvetica;fontSize=12;fontColor=default;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontStyle=1;" edge="1" parent="1" source="6" target="40">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="385.2631578947368" y="441.72" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="51" value="" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;" edge="1" parent="1" source="46" target="32">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="n×nで迷路初期化&lt;br&gt;ゲーム開始" style="whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="506.31578947368416" y="302.24" width="121.05263157894737" height="50.72" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="39" target="46">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="40" target="46">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" style="edgeStyle=none;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;fontFamily=Helvetica;fontSize=10;fontColor=default;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontStyle=1;" edge="1" parent="1" source="32" target="32">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="748" y="274"/>
+                            <mxPoint x="700" y="274"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="58" value="実行コマンド" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="761.5263157894736" y="283" width="78" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="ゴール到達" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="929.0047368421052" y="349" width="68" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" style="edgeStyle=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;fontFamily=Helvetica;fontSize=10;fontColor=default;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontStyle=1;" edge="1" parent="1" source="63" target="6">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="724" y="682"/>
+                            <mxPoint x="245" y="685"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="76" style="edgeStyle=none;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.832;entryY=0.013;entryDx=0;entryDy=0;entryPerimeter=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;" edge="1" parent="1" source="63" target="46">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="974" y="257"/>
+                            <mxPoint x="637" y="257"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="63" value="クリアモーダル&lt;br&gt;オープン" style="whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="978.421052631579" y="302.24" width="121.05263157894737" height="50.72" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="" style="edgeStyle=none;html=1;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;" edge="1" parent="1" source="34" target="63">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" style="edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;" edge="1" parent="1" source="69" target="46">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="627" y="213"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="72" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fontStyle=1;" edge="1" parent="1" source="63" target="69">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="「HOME」ボタン" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="943.1052631578947" y="419.36" width="98" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="「NEXT」ボタン" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="1">
+                    <mxGeometry x="1029.842105263158" y="254.51999999999998" width="95" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="81" value="" style="group;fontStyle=1;" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="348.95" y="118" width="791.05" height="412.48" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="rounded=0;whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=12;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="81">
+                    <mxGeometry x="0.002631570192965987" width="791.047368429807" height="412.48" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;ゲーム画面&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="81">
+                    <mxGeometry x="1" y="13.457777777777784" width="78" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="移動コマンド" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="81">
+                    <mxGeometry x="336.2594736842105" y="138" width="78" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="78" value="「RETRY」ボタン" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="81">
+                    <mxGeometry x="525.0531578947368" y="120" width="102" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" value="nを1加算する" style="whiteSpace=wrap;html=1;pointerEvents=0;fontFamily=Helvetica;fontSize=10;fontColor=default;fillColor=none;gradientColor=none;fontStyle=1;" vertex="1" parent="81">
+                    <mxGeometry x="629.4710526315789" y="69.28" width="121.05263157894737" height="50.72" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="ゴール未到達" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontFamily=Helvetica;fontColor=default;fontStyle=1;" vertex="1" parent="81">
+                    <mxGeometry x="406.051052631579" y="268" width="78" height="24" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
